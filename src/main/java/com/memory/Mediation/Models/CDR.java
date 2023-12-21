@@ -2,9 +2,9 @@ package com.memory.Mediation.Models;
 
 
 import jakarta.persistence.*;
-import lombok.Setter;
-import lombok.Getter;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Setter
 @Getter
@@ -48,7 +48,8 @@ public class CDR {
         this.b_Sub = b_Sub;
         this.duration = duration;
     }
-    public CDR(){
+
+    public CDR() {
 
     }
 

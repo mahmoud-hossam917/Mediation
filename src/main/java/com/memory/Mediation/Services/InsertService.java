@@ -2,16 +2,20 @@ package com.memory.Mediation.Services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ExecutorService;
 
 @Service
 public class InsertService implements Runnable {
 
-    private CDRService cdrService;
+    private final CDRService cdrService;
+    private final ExecutorService insertExecutorService;
 
     @Autowired
-    public InsertService(CDRService cdrService) {
-
+    public InsertService(CDRService cdrService, @Qualifier("insertExecutorService") ExecutorService insertExecutorService) {
+        this.insertExecutorService = insertExecutorService;
         this.cdrService = cdrService;
 
     }
@@ -26,8 +30,9 @@ public class InsertService implements Runnable {
     }
 
     public void doWork() {
-        Thread thread = new Thread(this);
-        thread.start();
+//        Thread thread = new Thread(this);
+//        thread.start();
+        insertExecutorService.submit(this);
 
     }
 

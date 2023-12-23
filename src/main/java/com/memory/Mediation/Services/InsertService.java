@@ -24,14 +24,14 @@ public class InsertService implements Runnable {
     @Override
     public void run() {
 
-        synchronized (this) {
-            cdrService.clearList();
+        try {
+            cdrService.takeListFromQueue();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void doWork() {
-//        Thread thread = new Thread(this);
-//        thread.start();
         insertExecutorService.submit(this);
 
     }

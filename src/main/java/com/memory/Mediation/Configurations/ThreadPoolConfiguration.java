@@ -12,12 +12,12 @@ public class ThreadPoolConfiguration {
 
     @Bean(name = "readExecutorService")
     public ExecutorService readExecutorService() {
-        return Executors.newFixedThreadPool(5);
+        return Executors.newFixedThreadPool(1);
     }
 
     @Bean(name = "insertExecutorService")
     public ExecutorService insertExecutorService() {
-        return Executors.newFixedThreadPool(10);
+        return Executors.newFixedThreadPool(3);
     }
 
 }

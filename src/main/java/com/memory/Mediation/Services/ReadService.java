@@ -31,8 +31,6 @@ public class ReadService implements Runnable {
 
     public void doWork() {
         System.out.println("this is the doWork for insert");
-//        Thread thread = new Thread(this);
-//        thread.start();
         readExecutorService.submit(this);
     }
 }

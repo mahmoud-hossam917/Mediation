@@ -31,7 +31,7 @@ public class CDRController {
     }
 
     @GetMapping("clear")
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 500)
     public ResponseEntity clearList() {
 
         insertService.doWork();

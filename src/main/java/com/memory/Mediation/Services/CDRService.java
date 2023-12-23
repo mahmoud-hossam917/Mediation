@@ -6,8 +6,6 @@ import com.memory.Mediation.Repositories.CDRRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -31,11 +29,6 @@ public class CDRService {
     public List<CDR> getNewList() {
         return new ArrayList<>();
     }
-    /*
-     You have two methods: 'readFilesUsingNIO,' which uses Java NIO,
-      and the second one, 'readAllLinesOfFile,'
-      which uses the 'readAllLines' function to load the entire file  into memory.
-     */
 
     // Note: don't forget to change the path of folder which the engine will read from it
     public synchronized void readCDR() {
@@ -44,21 +37,24 @@ public class CDRService {
         Date enddate = new Date();
         System.out.println("end Date: " + enddate);
     }
-    public void insertDataIntoDataBase(List<CDR> data){
+
+    public void insertDataIntoDataBase(List<CDR> data) {
         System.out.println("ready to insert into database");
         cdrRepository.saveAll(data);
         System.out.println("data inserted successfully");
-        Date date=new Date();
-        System.out.println("data inserted on: "+date);
+        Date date = new Date();
+        System.out.println("data inserted on: " + date);
     }
+
     public void takeListFromQueue() throws InterruptedException {
 
-        if(!INSTANSE.queueOfListsOfCDR.isEmpty()) {
+        if (!INSTANSE.queueOfListsOfCDR.isEmpty()) {
             List<CDR> data = INSTANSE.queueOfListsOfCDR.take();
             insertDataIntoDataBase(data);
             data = null;
         }
     }
+
     public void createCDR(String line) {
 
         try {
@@ -90,8 +86,9 @@ public class CDRService {
         }
         checkSizeOfQueue();
     }
+
     public void checkSizeOfQueue() throws InterruptedException {
-        while (INSTANSE.queueOfListsOfCDR.size()>=10){
+        while (INSTANSE.queueOfListsOfCDR.size() >= 10) {
             wait(50);
         }
     }
